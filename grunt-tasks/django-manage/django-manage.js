@@ -46,16 +46,18 @@ module.exports = function (grunt) {
             command = spawn('/bin/sh', ['-c', run]);
         }
 
-        var stderr_output = '';
-        command.stderr.on('data', function(data) {
-            stderr_output += data;
+        var stdErrOutput = '';
+        command.stderr.on('data', function (data) {
+            stdErrOutput += data;
         });
 
         command.on('close', function (code) {
             if (code > 0) {
-                grunt.log.error('Django command "' + cmd + '" exited with code ' + code);
-                if (stderr_output) {
-                    grunt.log.error('stderr was:\n' + stderr_output);
+                grunt.log.error(
+                    'Django command "' + cmd + '" exited with code ' + code
+                );
+                if (stdErrOutput) {
+                    grunt.log.error('stderr was:\n' + stdErrOutput);
                 }
                 grunt.fail.fatal('Django management command failed.');
                 done(false);
