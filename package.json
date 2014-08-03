@@ -2,7 +2,7 @@
   "name": "grunt-django-manage",
   "version": "0.1.0",
   "description": "Run Django manage.py commands",
-  "main": "index.js",
+  "main": "tasks/django-manage.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,5 +24,12 @@
   "homepage": "https://github.com/rockabox/grunt-django-manage",
   "engines": {
     "node": "~0.10.0"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-cli": "~0.1.13",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-jscs-checker": "~0.6.2",
+    "load-grunt-tasks": "~0.6.0"
   }
 }
