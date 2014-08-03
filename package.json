@@ -1,0 +1,28 @@
+{
+  "name": "grunt-django-manage",
+  "version": "0.1.0",
+  "description": "Run Django manage.py commands",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/rockabox/grunt-django-manage.git"
+  },
+  "keywords": [
+    "django",
+    "manage.py"
+  ],
+  "author": [
+    "Rockabox <tech@rockabox.com> (http://rockabox.com)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rockabox/grunt-django-manage/issues"
+  },
+  "homepage": "https://github.com/rockabox/grunt-django-manage",
+  "engines": {
+    "node": "~0.10.0"
+  }
+}
