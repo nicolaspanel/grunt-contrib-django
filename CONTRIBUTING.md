@@ -10,8 +10,6 @@ for developers contributing to the project.
 - [Features](#features)
 - [Node dependencies](#node-dependencies)
 - [Frontend dependencies](#frontend-dependencies)
-- [Using grunt](#grunt)
-- [JS Guidelines](#js)
 
 ## Pull requests
 

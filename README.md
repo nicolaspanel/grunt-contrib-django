@@ -20,3 +20,10 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-django-manage');
 ```
+## Contribuiting
+
+If you would like to contribute to the project please check the [CONTRIBUTING file](CONTRIBUTING.md)
+
+## License
+
+The license file can be found [here](Licenese.txt)
