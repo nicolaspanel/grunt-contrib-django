@@ -1,4 +1,3 @@
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 [![Build Status](https://travis-ci.org/rockabox/grunt-django-manage.svg?branch=master)](https://travis-ci.org/rockabox/grunt-django-manage)
 [![devDependency Status](https://david-dm.org/rockabox/grunt-django-manage/dev-status.svg)](https://david-dm.org/rockabox/grunt-django-manage#info=devDependencies)
 
@@ -20,6 +19,71 @@ Once the plugin has been installed, it may be enabled inside your Gruntfile with
 ```js
 grunt.loadNpmTasks('grunt-django-manage');
 ```
+
+## Usage
+
+### Basic setup
+```js
+grunt.initConfig({
+    'django-manage': {
+        options: {
+            app: 'myApp',
+            settings: 'test'
+        },
+        loaddata: {
+            options: {
+                command: 'loaddata',
+                args: [
+                    './fixtures/user.json',
+                    './fixtures/postcodes.json'
+                ]
+            }
+        }
+    }
+});
+```
+
+To run a loaddata command with django-manage you would run the following
+
+Running
+```shell
+grunt django-manage:loaddata
+// This will run
+// python manage.py loaddata ./fixtures/user.json ./fixtures/postcodes.json --settings=myApp.settings.test
+```
+
+### Changing options in commands
+```js
+grunt.initConfig({
+    'django-manage': {
+        options: {
+            app: 'myApp',
+            settings: 'test'
+        },
+        loaddata: {
+            options: {
+                command: 'loaddata',
+                args: [
+                    './fixtures/user.json',
+                    './fixtures/postcodes.json'
+                ]
+            },
+            live: {
+                settings: 'live'
+            }
+        }
+    }
+});
+```
+
+To run ``loaddata`` using live settings you would instead run
+
+```shell
+grunt django-manage:loaddata:live
+// This will run
+// python manage.py loaddata ./fixtures/user.json ./fixtures/postcodes.json --settings=myApp.settings.live
+```
+
 ## Contribuiting
 
 If you would like to contribute to the project please check the [CONTRIBUTING file](CONTRIBUTING.md)
