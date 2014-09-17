@@ -2,28 +2,27 @@
 
 var _ = require('lodash'),
 	CmdBuilder = require('./cmdBuilder').CmdBuilder, 
-    spawn = require('child_process').spawn,
+    exec = require('child_process').exec,
     child = null;
 
 module.exports = function(grunt){
     var cmdBuilder = new CmdBuilder(grunt); 
-    var runCommand = function(cmd, args, done, options) {
-	    options = _.extend({ cwd: undefined, env: process.env }, options || {});
-	    var verbose = options.verbose || false;
-	    grunt.log.ok('Running command: ' + (cmd + args.join(' ')).yellow);
+    var runCommand = function(cmd, done, verbose) {
+	    verbose = verbose || false;
+	    grunt.log.ok('Running ' + cmd.yellow + ' command from ' + process.cwd());
 	    if (verbose){
 	        grunt.log.ok('Verbose option activated');
 	    }
-	    
-	    child = spawn(cmd, args, options);
+        child = exec(cmd);
+
 	    child.stdout.on('data', function (data) {
 	        if (verbose){
-	            grunt.log.write('stdout:: ', data);
+	            grunt.log.write(data);
 	        }
 	    });
 
 	    child.stderr.on('data', function (data) {
-	        grunt.log.write('stderr:: ', data);
+	        grunt.log.write(data);
 	    });
 
 	    child.on('close', function (code) {
@@ -43,21 +42,14 @@ module.exports = function(grunt){
     grunt.task.registerMultiTask('django-manage', 'Run std manage.py commands', function(){
         var done = this.async() || function(){},
         	options = this.options() || {},
-        	args = cmdBuilder.getDjangoManageArgs(options);
-        runCommand('python', args, done, options);
+        	cmd = cmdBuilder.getDjangoManageCmd(options);
+        runCommand(cmd, done, options.verbose || false);
     });
 
     grunt.task.registerMultiTask('django-admin', 'Run django-admin.py commands', function(){
         var done = this.async() || function(){},
         	options = this.options() || {},
-        	workingDir = '{cwd}/{app}'.format({
-        		cwd: process.cwd(),
-        		app: options.app
-        	}),
-        	args = cmdBuilder.getDjangoAdminArgs(options);
-        runCommand('django-admin.py', args, done, _.extend({ 
-        	verbose: false,
-        	cwd: workingDir
-        }, options));
+        	cmd = cmdBuilder.getDjangoAdminCmd(options);
+        runCommand(cmd, done, options.verbose || false);
     });
 };
