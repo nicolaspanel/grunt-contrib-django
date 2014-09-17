@@ -18,7 +18,7 @@ CmdBuilder.prototype.getDjangoManageCmd = function(options) {
     }
     return 'python manage.py {args}'.format({
         args: args.join(' ')
-    });
+    }).trim();
 };
 
 CmdBuilder.prototype.getDjangoAdminCmd = function(options) {
@@ -33,7 +33,7 @@ CmdBuilder.prototype.getDjangoAdminCmd = function(options) {
     return 'cd {app}/ && django-admin.py {args}'.format({
         app: options.app,
         args: args.join(' ')
-    });
+    }).trim();
 };
 
 module.exports.CmdBuilder = CmdBuilder;

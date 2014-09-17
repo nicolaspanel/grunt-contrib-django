@@ -6,13 +6,14 @@ var _ = require('lodash'),
 
 describe('Django command builder', function(){
 	var builder,
-		defaultOptions = { 
-			app: 'myAppp', 
-			verbose: false 
-		};
+		defaultOptions;
 	
 	beforeEach(function(){
 		builder = new CmdBuilder();
+		defaultOptions = { 
+			app: 'myApp',
+			verbose: false 
+		};
 	});
 	
 	describe('manage.py', function(){
@@ -27,10 +28,26 @@ describe('Django command builder', function(){
 				builder.getDjangoManageCmd(options).should.equal(expectedCmd);
 			});
 		});
+
+		it('should handle test cmd', function(){
+			var options = _.extend(defaultOptions, {
+					command: 'test', 
+					args: [
+	                    'myApp/tests',
+	                    '--pattern="*Specs.py"',
+	                    '--settings="myApp.settings.tests"'
+	                ]
+				}),
+				expectedCmd = 'python manage.py {cmd} {args}'.format({
+					cmd: options.command,
+					args: options.args.join(' ').trim()
+				});
+			builder.getDjangoManageCmd(options).should.eql(expectedCmd);
+		});
 	});
 
 	describe('django-admin.py', function(){
-		it('should handle compile messages', function(){
+		it('should handle compilemessages cmd', function(){
 			var expectedCmd = 'cd myApp/ && django-admin.py compilemessages',
                 options = _.extend(defaultOptions, {
 				command: 'compilemessages'
