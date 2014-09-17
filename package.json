@@ -37,7 +37,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "load-grunt-tasks": "~0.6.0",
     "grunt-mocha-cov": "latest",
-    "sinon": "^1.10.3"
+    "sinon": "^1.10.3",
+    "grunt-cli": "^0.1.13"
   },
   "dependencies": {
     "lodash": "^2.4.1",
