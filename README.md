@@ -1,3 +1,4 @@
+-[![Build Status](https://travis-ci.org/nicolaspanel/grunt-contrib-django.svg?branch=master)](https://travis-ci.org/nicolaspanel/grunt-contrib-django)
 
 # grunt-contrib-django
 
@@ -48,7 +49,8 @@ module.exports = function (grunt) {
                     args: [
                         '--format=json',
                         '--indent=4',
-                        'myApp > ./path/to/output_file.json'
+                        'myApp',                       // return only on application's models
+                        '> ./path/to/output_file.json' // save in file
                     ]
                 }
             }
@@ -79,7 +81,7 @@ module.exports = function (grunt) {
 To run a `dumpdata` command you should run the following:
 
 ```shell
-grunt dump // This will run 'python manage.py dumpdata --format=json --indent=4 myApp > ./dest/path/file.ext'
+grunt dump // This will run 'python manage.py dumpdata --format=json --indent=4 myApp > ../path/to/output_file.json'
 ```
 or
 ```shell
