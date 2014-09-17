@@ -1,21 +1,27 @@
 {
-    // Predefined globals
-    "browser"       : true,     // Standard browser globals
-
-    // Development
-    "debug"         : false,    // Allow debugger statements e.g. browser breakpoints.
-    "devel"         : true,     // Allow development statements e.g. `console.log();`.
-
-    // The Good Parts
-    "evil"          : false,    // Tolerate use of `eval`.
-    "regexdash"     : true,     // Tolerate unescaped last dash i.e. `[-...]`.
-    "trailing"      : true,     // Prohibit trailing whitespaces.
-    "sub"           : true,     // Tolerate all forms of subscript notation besides dot notation e.g. `dict['key']` instead of `dict.key`.
-    "eqeqeq"        : false,    // Require triple equals i.e. `===`.
-
-    // Styling preferences.
-    "indent"        : 4,        // Indent level
-    "maxlen"        : 80,       // Set Maximum length of characters to 80
-    "quotmark"      : "single", // Prefer single quotes
-    "camelcase"     : true      // Use CAMEL Casing for variables
+    "globals": {
+        "it": true,
+        "describe": true,
+        "beforeEach": true,
+        "afterEach": true
+    },
+    "browser": true,
+    "bitwise": true,
+    "indent": 4,           // Indent level
+    "maxlen": 100,         // Set Maximum length for each line
+    "quotmark": "single",  // Prefer single quotes
+    "curly": true,
+    "eqeqeq": true,
+    "immed": true,
+    "latedef": true,
+    "newcap": true,
+    "noarg": true,
+    "sub": true,
+    "undef": true,
+    "boss": true,
+    "eqnull": true,
+    "node": true,
+    "strict": true,
+    "expr": true,
+    "smarttabs": true
 }

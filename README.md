@@ -1,9 +1,15 @@
-[![Build Status](https://travis-ci.org/rockabox/grunt-django-manage.svg?branch=master)](https://travis-ci.org/rockabox/grunt-django-manage)
-[![devDependency Status](https://david-dm.org/rockabox/grunt-django-manage/dev-status.svg)](https://david-dm.org/rockabox/grunt-django-manage#info=devDependencies)
 
-# grunt-django-manage
+# grunt-contrib-django
 
-Grunt tasks to run common django management commands
+Grunt tasks to run [common django commands](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+Tested commands (should work for any cmd BTW):
+ - `manage.py`:
+   - [test](https://docs.djangoproject.com/en/dev/ref/django-admin/#test-app-or-test-identifier)
+   - [dumpdata](https://docs.djangoproject.com/en/dev/ref/django-admin/#dumpdata-app-label-app-label-app-label-model)
+ - `django-admin.py`:
+   - [compilemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#compilemessages)
+
+NOTICE: feel free to complete this list based on your own experience :)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.0`
@@ -11,83 +17,75 @@ This plugin requires Grunt `~0.4.0`
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
 ```shell
-npm install grunt-django-manage --save-dev
-```
-
-Once the plugin has been installed, it may be enabled inside your Gruntfile with this line of JavaScript:
-
-```js
-grunt.loadNpmTasks('grunt-django-manage');
+npm install grunt-contrib-django --save-dev
 ```
 
 ## Usage
 
-### Basic setup
+### Basic gruntfile.js
 ```js
-grunt.initConfig({
-    'django-manage': {
-        options: {
-            app: 'myApp',
-            settings: 'test'
-        },
-        loaddata: {
+'use strict';
+
+module.exports = function (grunt) {
+    grunt.initConfig({
+        'django-manage': {
             options: {
-                command: 'loaddata',
-                args: [
-                    './fixtures/user.json',
-                    './fixtures/postcodes.json'
-                ]
-            }
-        }
-    }
-});
-```
-
-To run a loaddata command with django-manage you would run the following
-
-Running
-```shell
-grunt django-manage:loaddata
-// This will run
-// python manage.py loaddata ./fixtures/user.json ./fixtures/postcodes.json --settings=myApp.settings.test
-```
-
-### Changing options in commands
-```js
-grunt.initConfig({
-    'django-manage': {
-        options: {
-            app: 'myApp',
-            settings: 'test'
-        },
-        loaddata: {
-            options: {
-                command: 'loaddata',
-                args: [
-                    './fixtures/user.json',
-                    './fixtures/postcodes.json'
-                ]
+                app: 'myApp'
             },
-            live: {
-                settings: 'live'
+            tests: {
+                options: {
+                    command: 'test',
+                    args: [
+                        'myApp/tests',
+                        '--pattern="*Tests.py"',
+                        '--settings="myApp.settings.tests"'
+                    ]
+                }
+            },
+            dump: {
+                options: {
+                    command: 'dumpdata',
+                    args: [
+                        '--format=json',
+                        '--indent=4',
+                        'myApp > ./path/to/output_file.json'
+                    ]
+                }
+            }
+        },
+        'django-admin': {
+            options: {
+                app: 'myApp'
+            },
+            'compile': {
+                options: {
+                    command: 'compilemessages',
+                    verbose: true
+                }
             }
         }
-    }
-});
+    });
+
+    grunt.registerTask('test', ['django-manage:test']);
+    grunt.registerTask('compile', ['django-admin:compile']);
+    grunt.registerTask('dump', ['django-manage:dump']);
+    grunt.registerTask('default', ['test']);
+
+    grunt.loadNpmTasks('grunt-contrib-django');
+};
 ```
 
-To run ``loaddata`` using live settings you would instead run
+### Calling tasks
+To run a `dumpdata` command you should run the following:
 
 ```shell
-grunt django-manage:loaddata:live
-// This will run
-// python manage.py loaddata ./fixtures/user.json ./fixtures/postcodes.json --settings=myApp.settings.live
+grunt dump // This will run 'python manage.py dumpdata --format=json --indent=4 myApp > ./dest/path/file.ext'
+```
+or
+```shell
+grunt django-manage:dump // which will also run 'python manage.py dumpdata --format=json --indent=4 myApp > ./path/to/output_file.json'
 ```
 
-## Contribuiting
-
-If you would like to contribute to the project please check the [CONTRIBUTING file](CONTRIBUTING.md)
 
 ## License
-
-The license file can be found [here](Licenese.txt)
+[The MIT license](https://github.com/nicolaspanel/grunt-contrib-django/blob/master/License.txt)

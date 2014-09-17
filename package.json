@@ -1,35 +1,46 @@
 {
-  "name": "grunt-django-manage",
+  "name": "grunt-contrib-django",
   "version": "0.1.0",
-  "description": "Run Django manage.py commands",
-  "main": "tasks/django-manage.js",
+  "description": "Grunt tasks to run common django commands, inspired from rockabox/grunt-django-manage",
+  "main": "tasks/tasks.js",
+  "private": false,
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/rockabox/grunt-django-manage.git"
+    "url": "git://github.com/nicolaspanel/grunt-contrib-django"
   },
   "keywords": [
     "django",
-    "manage.py"
+    "manage.py",
+    "django-admin.py",
+    "grunt"
   ],
   "author": [
+    "nicolaspanel <nicolas.panel@live.fr>",
     "Rockabox <tech@rockabox.com> (http://rockabox.com)"
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rockabox/grunt-django-manage/issues"
+    "url": "https://github.com/nicolaspanel/grunt-contrib-django/issues"
   },
-  "homepage": "https://github.com/rockabox/grunt-django-manage",
+  "homepage": "https://github.com/nicolaspanel/grunt-contrib-django",
   "engines": {
     "node": "~0.10.0"
   },
   "devDependencies": {
+    "mocha": "~1.17.1",
+    "should": ">=0.5.x",
     "grunt": "~0.4.5",
-    "grunt-cli": "~0.1.13",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-jscs-checker": "~0.6.2",
-    "load-grunt-tasks": "~0.6.0"
+    "grunt-contrib-watch": "^0.6.1",
+    "load-grunt-tasks": "~0.6.0",
+    "grunt-mocha-cov": "latest",
+    "sinon": "^1.10.3"
+  },
+  "dependencies": {
+    "lodash": "^2.4.1",
+    "string-format": "^0.2.1"
   }
 }

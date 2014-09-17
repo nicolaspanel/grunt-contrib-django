@@ -1,17 +1,38 @@
+'use strict';
+
+var paths = {
+    js: [
+        '*.js',
+        'tasks/*.js',
+        'test/*.js',
+    ]
+};
+
 module.exports = function (grunt) {
     grunt.initConfig({
-        'jshint': {
-            'src': [
-                './*.js',
-                './tasks/*.js',
-                './test/*.js'
-            ],
-            'options': {
-                'jshintrc': '.jshintrc'
+        watch: {
+            js: {
+                files: paths.js,
+                tasks: ['jshint:all', 'mochacov'],
+                options: {
+                    livereload: true
+                }
             }
         },
-        'jscs': {
-            'src': '<%= jshint.src %>'
+        jshint: {
+            all: {
+                src: paths.js,
+                options: {
+                    jshintrc: true
+                }
+            }
+        },
+        mochacov: {
+            options: {
+                reporter: 'spec',
+                require: ['should']
+            },
+            all: ['test/*.js']
         }
     });
 
@@ -20,8 +41,8 @@ module.exports = function (grunt) {
     // Registers a task to test the task
     grunt.registerTask('test', [
         'jshint',
-        'jscs'
+        'mochacov'
     ]);
 
-    grunt.registerTask('default', ['test']);
+    grunt.registerTask('default', ['watch']);
 };
