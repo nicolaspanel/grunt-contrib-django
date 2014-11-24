@@ -31,7 +31,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         'django-manage': {
             options: {
-                app: 'myApp'
+                app: 'myApp',
+                // only if your 'manager.py' is on another path
+                manage_path: './path/to/manage/'
             },
             tests: {
                 options: {
