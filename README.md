@@ -3,6 +3,7 @@
 # grunt-contrib-django
 
 Grunt tasks to run [common django commands](https://docs.djangoproject.com/en/dev/ref/django-admin/).
+
 Tested commands (should work for any cmd BTW):
  - `manage.py`:
    - [test](https://docs.djangoproject.com/en/dev/ref/django-admin/#test-app-or-test-identifier)
@@ -10,7 +11,7 @@ Tested commands (should work for any cmd BTW):
  - `django-admin.py`:
    - [compilemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#compilemessages)
 
-NOTICE: feel free to complete this list based on your own experience :)
+__Note__: feel free to complete this list based on your own experience :)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.0`
@@ -31,7 +32,9 @@ module.exports = function (grunt) {
     grunt.initConfig({
         'django-manage': {
             options: {
-                app: 'myApp'
+                app: 'myApp',
+                // only if your 'manager.py' is on another path
+                manage_path: './path/to/manage/'
             },
             tests: {
                 options: {
