@@ -1,6 +1,5 @@
-[![Build Status](https://travis-ci.org/nicolaspanel/grunt-contrib-django.svg?branch=master)](https://travis-ci.org/nicolaspanel/grunt-contrib-django)
 [![NPM](https://nodei.co/npm/grunt-contrib-django.png?downloads=true)](https://nodei.co/npm/grunt-contrib-django/)
-
+[![Build Status](https://travis-ci.org/nicolaspanel/grunt-contrib-django.svg?branch=master)](https://travis-ci.org/nicolaspanel/grunt-contrib-django)
 # grunt-contrib-django
 
 Grunt tasks to run [common django commands](https://docs.djangoproject.com/en/dev/ref/django-admin/).
