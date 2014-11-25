@@ -1,17 +1,8 @@
-[![NPM](https://nodei.co/npm/grunt-contrib-django.png?downloads=true)](https://nodei.co/npm/grunt-contrib-django/)
-[![Build Status](https://travis-ci.org/nicolaspanel/grunt-contrib-django.svg?branch=master)](https://travis-ci.org/nicolaspanel/grunt-contrib-django)
 # grunt-contrib-django
 
 Grunt tasks to run [common django commands](https://docs.djangoproject.com/en/dev/ref/django-admin/).
-
-Tested commands (should work for any cmd BTW):
- - `manage.py`:
-   - [test](https://docs.djangoproject.com/en/dev/ref/django-admin/#test-app-or-test-identifier)
-   - [dumpdata](https://docs.djangoproject.com/en/dev/ref/django-admin/#dumpdata-app-label-app-label-app-label-model)
- - `django-admin.py`:
-   - [compilemessages](https://docs.djangoproject.com/en/dev/ref/django-admin/#compilemessages)
-
-__Note__: feel free to complete this list based on your own experience :)
+[![NPM](https://nodei.co/npm/grunt-contrib-django.png?downloads=true)](https://nodei.co/npm/grunt-contrib-django/)
+[![Build Status](https://travis-ci.org/nicolaspanel/grunt-contrib-django.svg?branch=master)](https://travis-ci.org/nicolaspanel/grunt-contrib-django)
 
 ## Getting Started
 This plugin requires Grunt `~0.4.0`
