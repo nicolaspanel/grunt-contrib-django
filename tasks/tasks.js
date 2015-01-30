@@ -1,5 +1,5 @@
 'use strict';
-
+require('string-format');
 var _ = require('lodash'),
     assert = require('assert'),
     cmd = require('./cmd');
@@ -15,7 +15,7 @@ module.exports = function(grunt){
             '{0}manage.py'.format(options.manage_path || ''),
             options.command
         ].concat(options.args || []);
-        console.log(args);
+
         cmd('python', args , {})
             .progress(function(data){
                 if (options.verbose){

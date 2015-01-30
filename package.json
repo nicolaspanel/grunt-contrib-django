@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-django",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Grunt tasks to run common django commands. Inspired from rockabox/grunt-django-manage",
   "main": "tasks/tasks.js",
   "private": false,
