@@ -1,5 +1,6 @@
 'use strict';
 
+var expect = require('expect.js');
 var Grunt = require('./mocks').Grunt;
 
 describe('tasks', function(){
@@ -11,15 +12,14 @@ describe('tasks', function(){
 		tasks = require('../tasks/tasks')(grunt);
 	});
 	it('should regiter manage.py tasks', function(){
-		grunt.task.registerMultiTask.withArgs('django-manage').calledOnce.should.equal(true);
+		expect(grunt.task.registerMultiTask.withArgs('django-manage').calledOnce).to.be.ok();
 	});
 	it('should regiter django-admin.py tasks', function(){
-		grunt.task.registerMultiTask.withArgs('django-admin').calledOnce.should.equal(true);
-		//console.log(grunt.task.registerMultiTask);
+        expect(grunt.task.registerMultiTask.withArgs('django-admin').calledOnce).to.be.ok();
 	});
 	
 	it('should not regiter single tasks', function(){
-		grunt.task.registerTask.called.should.equal(false);
+        expect(grunt.task.registerTask.called).not.to.be.ok();
 	});	
 });
 
