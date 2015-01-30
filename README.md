@@ -33,7 +33,7 @@ module.exports = function (grunt) {
                     command: 'test',
                     args: [
                         'myApp/tests',
-                        '--pattern="*Tests.py"',
+                        '--pattern=test_*.py',
                         '--settings=myApp.settings.tests'
                     ]
                 }
