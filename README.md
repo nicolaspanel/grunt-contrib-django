@@ -28,7 +28,7 @@ module.exports = function (grunt) {
                 // only if your 'manager.py' is on another path
                 manage_path: './path/to/manage/'
             },
-            tests: {
+            test: {
                 options: {
                     command: 'test',
                     args: [
