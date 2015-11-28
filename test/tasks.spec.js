@@ -11,14 +11,14 @@ describe('tasks', function(){
 		grunt = new Grunt();
 		tasks = require('../tasks/tasks')(grunt);
 	});
-	it('should regiter manage.py tasks', function(){
+	it('should register manage.py tasks', function(){
 		expect(grunt.task.registerMultiTask.withArgs('django-manage').calledOnce).to.be.ok();
 	});
-	it('should regiter django-admin.py tasks', function(){
+	it('should register django-admin.py tasks', function(){
         expect(grunt.task.registerMultiTask.withArgs('django-admin').calledOnce).to.be.ok();
 	});
 	
-	it('should not regiter single tasks', function(){
+	it('should not register single tasks', function(){
         expect(grunt.task.registerTask.called).not.to.be.ok();
 	});	
 });
