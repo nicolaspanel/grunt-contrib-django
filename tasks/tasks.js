@@ -10,18 +10,22 @@ module.exports = function(grunt){
         var done = this.async() || function(){},
         	options = this.options() || {};
 
+        
+
         assert(options.command, 'command name required');
         var args = [
             '{0}manage.py'.format(options.manage_path || ''),
             options.command
         ].concat(options.args || []);
 
-        cmd('python', args , {})
+        cmd(options.interpreter, args , {})
             .progress(function(data){
                 if (options.verbose){
                     data = data.toString();
                     grunt.log.write(data);
+                    grunt.log.write('ARGS: {0}'.format(args));
                 }
+
             })
             .fail(function(err){
                 grunt.fail.fatal('Command "django-manage:{0}" failed. {1}'.format(options.command, err));
