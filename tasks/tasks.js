@@ -22,7 +22,7 @@ module.exports = function(grunt){
             var env = Object.create( process.env );
             env.PYTHONUNBUFFERED = 1;
             opts.env = env;
-        };
+        }
 
 
         cmd('python', args , opts, options.background)
@@ -31,7 +31,7 @@ module.exports = function(grunt){
                     var msg = data.msg.toString();
                     grunt.log.write(msg);
                 }
-                if (options.verbose == 'errors' && data.error){
+                if (options.verbose === 'errors' && data.error){
                     var error = data.error.toString();
                     grunt.log.error(error);
                 }
@@ -64,7 +64,7 @@ module.exports = function(grunt){
             var env = Object.create( process.env );
             env.PYTHONUNBUFFERED = 1;
             opts.env = env;
-        };
+        }
 
         cmd('django-admin.py', args , opts, options.background)
             .progress(function(data){
@@ -72,7 +72,7 @@ module.exports = function(grunt){
                     var msg = data.msg.toString();
                     grunt.log.write(msg);
                 }
-                if (options.verbose == 'errors' && data.error){
+                if (options.verbose === 'errors' && data.error){
                     var error = data.error.toString();
                     grunt.log.error(error);
                 }

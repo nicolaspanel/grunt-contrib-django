@@ -35,12 +35,12 @@ function executeCmd(command, args, options, background) {
 
                 process.on('exit', function() {
                     process.kill( -cProcess.pid, 'SIGKILL' );
-                })
+                });
 
                 process.once('SIGINT', function() {
                     process.kill( -cProcess.pid, 'SIGKILL' );
-                    process.kill(-process.pid, 'SIGINT')
-                })
+                    process.kill(-process.pid, 'SIGINT');
+                });
                 deferred.resolve([stdout, stderr]);
             }
         }
