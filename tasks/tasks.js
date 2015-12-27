@@ -10,22 +10,34 @@ module.exports = function(grunt){
         var done = this.async() || function(){},
         	options = this.options() || {};
 
-        
-
         assert(options.command, 'command name required');
         var args = [
             '{0}manage.py'.format(options.manage_path || ''),
             options.command
         ].concat(options.args || []);
 
-        cmd(options.interpreter, args , {})
-            .progress(function(data){
-                if (options.verbose){
-                    data = data.toString();
-                    grunt.log.write(data);
-                    grunt.log.write('ARGS: {0}'.format(args));
-                }
+        var opts  = {};
 
+        if(options.unBuffered || options.background){
+            var env = Object.create( process.env );
+            env.PYTHONUNBUFFERED = 1;
+            opts.env = env;
+        };
+
+
+        cmd('python', args , opts, options.background)
+            .progress(function(data){
+                if (options.verbose && data.msg){
+                    var msg = data.msg.toString();
+                    grunt.log.write(msg);
+                }
+                if (options.verbose == 'errors' && data.error){
+                    var error = data.error.toString();
+                    grunt.log.error(error);
+                }
+                if (data.status){
+                    grunt.log.subhead(data.status);
+                }
             })
             .fail(function(err){
                 grunt.fail.fatal('Command "django-manage:{0}" failed. {1}'.format(options.command, err));
@@ -46,11 +58,26 @@ module.exports = function(grunt){
 
         var args = [options.command].concat(options.args || []);
 
-        cmd('django-admin.py', args , { cwd : '{0}/{1}'.format(process.cwd(), options.app) })
+        var opts = { cwd : '{0}/{1}'.format(process.cwd(), options.app) };
+
+        if(options.unBuffered || options.background){
+            var env = Object.create( process.env );
+            env.PYTHONUNBUFFERED = 1;
+            opts.env = env;
+        };
+
+        cmd('django-admin.py', args , opts, options.background)
             .progress(function(data){
-                if (options.verbose){
-                    data = data.toString();
-                    grunt.log.write(data);
+                if (options.verbose && data.msg){
+                    var msg = data.msg.toString();
+                    grunt.log.write(msg);
+                }
+                if (options.verbose == 'errors' && data.error){
+                    var error = data.error.toString();
+                    grunt.log.error(error);
+                }
+                if (data.status){
+                    grunt.log.subhead(data.status);
                 }
             })
             .fail(function(err){
