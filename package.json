@@ -1,6 +1,6 @@
 {
   "name": "grunt-contrib-django",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Grunt tasks to run common django commands. Inspired from rockabox/grunt-django-manage",
   "main": "tasks/tasks.js",
   "private": false,
@@ -26,9 +26,6 @@
     "url": "https://github.com/nicolaspanel/grunt-contrib-django/issues"
   },
   "homepage": "https://github.com/nicolaspanel/grunt-contrib-django",
-  "engines": {
-    "node": "~0.10.0"
-  },
   "devDependencies": {
     "mocha": "~1.17.1",
     "should": ">=0.5.x",
