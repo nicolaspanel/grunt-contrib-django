@@ -28,6 +28,16 @@ module.exports = function (grunt) {
                 // only if your 'manager.py' is on another path
                 manage_path: './path/to/manage/'
             },
+            serve: {
+		options: {
+                    command: 'runserver',
+                    args: [],
+                    background: true, // also accepts string/regexp
+                    unBuffered: true // set python env to PYTHONUNBUFFERED=1 so STDOUT doesnt get buffered and grunt can read it
+                    // NOTE: background setting also sets unBuffered to true by default
+		    
+		}
+            },
             test: {
                 options: {
                     command: 'test',
@@ -57,7 +67,7 @@ module.exports = function (grunt) {
             'compile': {
                 options: {
                     command: 'compilemessages',
-                    verbose: true
+                    verbose: true // or 'errors' for STDERROR messages only
                 }
             }
         }
