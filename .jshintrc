@@ -8,7 +8,7 @@
     "browser": true,
     "bitwise": true,
     "indent": 4,           // Indent level
-    "maxlen": 100,         // Set Maximum length for each line
+    "maxlen": 120,         // Set Maximum length for each line
     "quotmark": "single",  // Prefer single quotes
     "curly": true,
     "eqeqeq": true,

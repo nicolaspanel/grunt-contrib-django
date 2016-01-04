@@ -4,7 +4,7 @@ var paths = {
     js: [
         '*.js',
         'tasks/*.js',
-        'test/*.js',
+        'test/*.js'
     ]
 };
 
@@ -32,7 +32,7 @@ module.exports = function (grunt) {
                 reporter: 'spec',
                 require: ['should']
             },
-            all: ['test/*.js']
+            all: ['test/*.spec.js']
         }
     });
 

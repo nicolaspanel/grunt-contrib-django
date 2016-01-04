@@ -1,55 +1,92 @@
 'use strict';
-
+require('string-format');
 var _ = require('lodash'),
-	CmdBuilder = require('./cmdBuilder').CmdBuilder, 
-    exec = require('child_process').exec,
-    child = null;
+    assert = require('assert'),
+    cmd = require('./cmd');
 
 module.exports = function(grunt){
-    var cmdBuilder = new CmdBuilder(grunt); 
-    var runCommand = function(cmd, done, verbose) {
-	    verbose = verbose || false;
-	    grunt.log.ok('Running ' + cmd.yellow + ' command from ' + process.cwd());
-	    if (verbose){
-	        grunt.log.ok('Verbose option activated');
-	    }
-        child = exec(cmd);
-
-	    child.stdout.on('data', function (data) {
-	        if (verbose){
-	            grunt.log.write(data);
-	        }
-	    });
-
-	    child.stderr.on('data', function (data) {
-	        grunt.log.write(data);
-	    });
-
-	    child.on('close', function (code) {
-	        //grunt.log.writeln('child process exited with code : ' + code);
-	        if (code > 0) {
-	            grunt.fail.fatal('Command failed, exited with code {0}'.format(code));
-	            done(false);
-	        } 
-	        else {
-	            grunt.log.ok('Command ran successfully');
-	            done(true);
-	        }
-	        process.exit(code);
-	    });
-	};
 
     grunt.task.registerMultiTask('django-manage', 'Run std manage.py commands', function(){
         var done = this.async() || function(){},
-        	options = this.options() || {},
-        	cmd = cmdBuilder.getDjangoManageCmd(options);
-        runCommand(cmd, done, options.verbose || false);
+        	options = this.options() || {};
+
+        assert(options.command, 'command name required');
+        var args = [
+            '{0}manage.py'.format(options.manage_path || ''),
+            options.command
+        ].concat(options.args || []);
+
+        var opts  = {};
+
+        if(options.unBuffered || options.background){
+            var env = Object.create( process.env );
+            env.PYTHONUNBUFFERED = 1;
+            opts.env = env;
+        }
+
+
+        cmd('python', args , opts, options.background)
+            .progress(function(data){
+                if (options.verbose && data.msg){
+                    var msg = data.msg.toString();
+                    grunt.log.write(msg);
+                }
+                if (options.verbose === 'errors' && data.error){
+                    var error = data.error.toString();
+                    grunt.log.error(error);
+                }
+                if (data.status){
+                    grunt.log.subhead(data.status);
+                }
+            })
+            .fail(function(err){
+                grunt.fail.fatal('Command "django-manage:{0}" failed. {1}'.format(options.command, err));
+                done(false);
+            })
+            .done(function(stdout){
+                grunt.log.ok('Command "django-manage:{0}" ran successfully'.format(options.command));
+                done(true);
+            });
     });
 
     grunt.task.registerMultiTask('django-admin', 'Run django-admin.py commands', function(){
         var done = this.async() || function(){},
-        	options = this.options() || {},
-        	cmd = cmdBuilder.getDjangoAdminCmd(options);
-        runCommand(cmd, done, options.verbose || false);
+            options = this.options() || {};
+
+        assert(options.command, 'command name required');
+        assert(options.app, 'app name required');
+
+        var args = [options.command].concat(options.args || []);
+
+        var opts = { cwd : '{0}/{1}'.format(process.cwd(), options.app) };
+
+        if(options.unBuffered || options.background){
+            var env = Object.create( process.env );
+            env.PYTHONUNBUFFERED = 1;
+            opts.env = env;
+        }
+
+        cmd('django-admin.py', args , opts, options.background)
+            .progress(function(data){
+                if (options.verbose && data.msg){
+                    var msg = data.msg.toString();
+                    grunt.log.write(msg);
+                }
+                if (options.verbose === 'errors' && data.error){
+                    var error = data.error.toString();
+                    grunt.log.error(error);
+                }
+                if (data.status){
+                    grunt.log.subhead(data.status);
+                }
+            })
+            .fail(function(err){
+                grunt.fail.fatal('command "django-admin:{0}" failed. {1}'.format(options.command, err));
+                done(false);
+            })
+            .done(function(stdout){
+                grunt.log.ok('command "django-admin:{0}" ran successfully'.format(options.command));
+                done(true);
+            });
     });
 };
